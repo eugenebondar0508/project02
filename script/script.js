@@ -7,7 +7,9 @@ window.addEventListener('DOMContentLoaded', function(){
         let timerHours = document.querySelector('#timer-hours');
         let timerMinutes = document.querySelector('#timer-minutes');
         let timerSeconds = document.querySelector('#timer-seconds');
-
+        const interval =  setInterval(function(){
+            updateClock();
+        }, 1000);
 
         function getTimeRemaning(){
 
@@ -54,15 +56,6 @@ window.addEventListener('DOMContentLoaded', function(){
             } else {
                 timerSeconds.textContent = timer.seconds;
             };
-
-            // timerHours.textContent =  '0' + timer.hours;
-            // timerMinutes.textContent = '0' + timer.minutes;
-            // timerSeconds.textContent = ('0' + timer.seconds).slice(-2); 
-
-
-
-            setInterval(updateClock, 1000);
-
             
         }
         updateClock()
