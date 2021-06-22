@@ -76,10 +76,10 @@ window.addEventListener('DOMContentLoaded', function(){
             menu.classList.toggle('active-menu');
         };
 
-        // btnMenu.addEventListener('click', handlerMenu);
+        btnMenu.addEventListener('click', handlerMenu);
         
-        body.addEventListener('click', () => {
-            if(event.target.tagName !== 'A' || btnMenu){
+        menu.addEventListener('click', () => {
+            if(event.target.tagName !== 'A'){
                 return;
             }
             handlerMenu(event);
