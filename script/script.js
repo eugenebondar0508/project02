@@ -218,9 +218,9 @@ window.addEventListener('DOMContentLoaded', function(){
     const slider = () =>{
         const slide = document.querySelectorAll('.portfolio-item');
         const btn  = document.querySelectorAll('.portfolio-btn');
-        const dot  = document.querySelectorAll('.dot');
+        
         const slider  = document.querySelector('.portfolio-content');
-        const dots = document.querySelector('.portfolio-dots');
+        let dots = document.querySelector('.portfolio-dots');
 
         let currentSlide = 0;
         let interval;
@@ -231,12 +231,14 @@ window.addEventListener('DOMContentLoaded', function(){
                 li.classList.add('dot');
                 dots.append(li);
             }
-
             
         }
         setDots();
+       let dot  = document.querySelectorAll('.dot');
 
-
+        dot.forEach(() => {
+            dot[0].classList.add('dot-active');
+        })
 
         const prevSlide = (elem, index, strClass) =>{
             elem[index].classList.remove(strClass);
@@ -261,7 +263,7 @@ window.addEventListener('DOMContentLoaded', function(){
          };
           const startSlide = (time = 3000) =>{
              interval =  setInterval(autoPlaySlide, time);
-             setInterval(setDots, time)
+            
 
         };
 
@@ -322,6 +324,32 @@ window.addEventListener('DOMContentLoaded', function(){
 };
 
     slider();
+
+
+    // команда 
+
+
+    // const changePhoto = () =>{
+    //     let photo = document.querySelectorAll('.command__photo');
+        
+    //     photo.forEach((elem) => {
+    //         elem.addEventListener('mouseenter', (event) => {
+    //             event.target.src = event.target.dataset.img;
+    //         });
+    //     });
+
+
+    //    photo.forEach((elem) => {
+    //         elem.addEventListener('mouseleave', (event) => {
+    //             event.target = event.target.src;
+    //         });
+    //     });
+
+        
+    // };
+
+
+    // changePhoto();
 
 
 
