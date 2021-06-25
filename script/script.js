@@ -380,30 +380,52 @@ window.addEventListener('DOMContentLoaded', function(){
         //  inputPhone.addEventListener('input', changeInput);
 
         function capitalize(str){
-            return str.replace(/(^|\s)\S/g, function(a, b) {return a.toUpperCase()  + b.slice(1).toLowerCase()});
+            return str.replace(/(^|\s)\S/g, function(a, b) {return a.toUpperCase()});
         };
 
         inputName.addEventListener('input', () =>{
-            inputName.value = inputName.value.replace (/[^А-Яа-яЁё\- '']/g, '');
-            inputName.value = capitalize(inputName.value);
+            inputName.value = inputName.value.replace (/[^А-Яа-яЁё\- '']/g, '').toLowerCase();
+
+
         });
+        inputName.addEventListener('blur', () => {
+            inputName.value = inputName.value.replace(/\s+/g, ' ').replace(/^\s*/,'').replace(/\s*$/,'');
+            inputName.value = capitalize(inputName.value);
+        })
+
+
+
+
         inputMessege.addEventListener('input', () =>{
             inputMessege.value = inputMessege.value.replace (/[^А-Яа-яЁё\-  '' ]/g, '');
+            
+        inputMessege.addEventListener('blur', () =>{
             inputMessege.value = inputMessege.value.replace(/\s+/g, ' ').replace(/^\s*/,'').replace(/\s*$/,'');
-            ;
+
+        })
+            
             
 
 
         });
         inputEmail.addEventListener('input', () =>{
             inputEmail.value = inputEmail.value.replace(/([^A-Za-z\- _ @ . ! ~ * '])/g,'');
+
             
         });
 
+        inputEmail.addEventListener('blur', () => {
+            inputEmail.value = inputEmail.value.replace(/\s+/g, ' ').replace(/^\s*/,'').replace(/\s*$/,'');
+        })
+
         inputPhone.addEventListener('input', () =>{
             inputPhone.value = inputPhone.value.replace (/[^0-9\- ()]/g, '');
-            
+
         });
+
+        inputPhone.addEventListener('blur', () => {
+            inputPhone.value = inputPhone.value.replace(/\s+/g, ' ').replace(/^\s*/,'').replace(/\s*$/,'');
+        })
 
 
     }
