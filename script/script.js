@@ -358,10 +358,6 @@ window.addEventListener('DOMContentLoaded', function(){
 
     const validInput = () => {
         const inputsForCalc = document.querySelectorAll('.calc-item');
-        let inputName = document.getElementById('form2-name');
-        let inputMessege = document.getElementById('form2-message');
-        let inputEmail = document.getElementById('form2-email');
-        let inputPhone = document.getElementById('form2-phone');
         let forms = document.querySelectorAll('form');
 
 
@@ -377,42 +373,26 @@ window.addEventListener('DOMContentLoaded', function(){
             elem.addEventListener('input', () =>{
                 if(event.target.matches('.form-name') || event.target.matches('#form2-name')){
                     event.target.value = event.target.value.replace (/[^А-Яа-яЁё\- '']/g, '').toLowerCase();
-                }
-            })
-        });
-
-        forms.forEach((elem) => {
-            elem.addEventListener('input', () =>{
-                if(event.target.matches('.form-email')){
+                } else if(event.target.matches('.form-email')){
                     event.target.value = event.target.value.replace (/([^A-Za-z\- _ @ . ! ~ * '])/g,'');
-                }
-            })
-        });
-
-        forms.forEach((elem) => {
-            elem.addEventListener('input', () =>{
-                if(event.target.matches('.form-phone')){
+                } else if(event.target.matches('.form-phone')){
                     event.target.value = event.target.value.replace (/[^0-9\- ()]/g, '');
+                } else if(event.target.matches('.mess')){
+                    event.target.value = event.target.value.replace  (/[^А-Яа-яЁё\-  '' ]/g, '');
                 }
             })
         });
 
-        inputMessege.addEventListener('input', () =>{
-            inputMessege.value = inputMessege.value.replace (/[^А-Яа-яЁё\-  '' ]/g, '');
-        });
 
-
-        inputMessege.addEventListener('blur', () =>{
-            inputMessege.value = correctForm(inputMessege.value)
-
-        });
         forms.forEach((elem) => {
             elem.addEventListener('blur', () =>{
                 if(event.target.matches('.form-name') || event.target.matches('#form2-name')){
-                    event.target.value = event.target.value.replace(/\s+/g, ' ').replace(/^\s*/,'').replace(/\s*$/,'');
-                    event.target.value = event.target.value.replace(/(^|\s)\S/g, function(a) {return a.toUpperCase()});
-                } 
-            })
+                    event.target.value = correctForm(event.target.value);
+                    event.target.value = capitalize(event.target.value);
+                } else if(event.target.matches('.form-email') || event.target.matches('.form-phone') || event.target.matches('.mess')){
+                    event.target.value = correctForm( event.target.value);
+                }
+            }, true)
         });
 
         inputsForCalc.forEach((elem) =>{
@@ -420,52 +400,6 @@ window.addEventListener('DOMContentLoaded', function(){
             elem.value = elem.value.replace (/\D/g, '');
            })
         });
-
-        
-
-        // inputName.addEventListener('input', () =>{
-        //     inputName.value = inputName.value.replace (/[^А-Яа-яЁё\- '']/g, '').toLowerCase();
-
-
-        // });
-        // inputName.addEventListener('blur', () => {
-
-        //     inputName.value = correctForm(inputName.value);
-        //     inputName.value = capitalize(inputName.value);
-        // })
-
-
-
-
-
-            
-
-            
-            
-
-
-        // });
-        // inputEmail.addEventListener('input', () =>{
-        //     inputEmail.value = inputEmail.value.replace(/([^A-Za-z\- _ @ . ! ~ * '])/g,'');
-
-            
-        // });
-
-        // inputEmail.addEventListener('blur', () => {
-        //     inputEmail.value = correctForm(inputEmail.value);
-        // })
-
-
-
-
-        // inputPhone.addEventListener('input', () =>{
-        //     inputPhone.value = inputPhone.value.replace (/[^0-9\- ()]/g, '');
-
-        // });
-
-        // inputPhone.addEventListener('blur', () => {
-        //     inputPhone.value = correctForm(inputPhone.value);
-        // })
 
 
     }
