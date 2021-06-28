@@ -357,80 +357,172 @@ window.addEventListener('DOMContentLoaded', function(){
 
 
     const validInput = () => {
-        const inputs = document.querySelectorAll('.calc-item');
+        const inputsForCalc = document.querySelectorAll('.calc-item');
         let inputName = document.getElementById('form2-name');
         let inputMessege = document.getElementById('form2-message');
         let inputEmail = document.getElementById('form2-email');
         let inputPhone = document.getElementById('form2-phone');
+        let forms = document.querySelectorAll('form');
 
-        inputs.forEach((elem) =>{
+
+        function correctForm(str){
+            return str.replace(/\s+/g, ' ').replace(/^\s*/,'').replace(/\s*$/,'');
+        }
+
+        function capitalize(str){
+            return str.replace(/(^|\s)\S/g, function(a) {return a.toUpperCase()});
+        };
+
+        forms.forEach((elem) => {
+            elem.addEventListener('input', () =>{
+                if(event.target.matches('.form-name') || event.target.matches('#form2-name')){
+                    event.target.value = event.target.value.replace (/[^А-Яа-яЁё\- '']/g, '').toLowerCase();
+                }
+            })
+        });
+
+        forms.forEach((elem) => {
+            elem.addEventListener('input', () =>{
+                if(event.target.matches('.form-email')){
+                    event.target.value = event.target.value.replace (/([^A-Za-z\- _ @ . ! ~ * '])/g,'');
+                }
+            })
+        });
+
+        forms.forEach((elem) => {
+            elem.addEventListener('input', () =>{
+                if(event.target.matches('.form-phone')){
+                    event.target.value = event.target.value.replace (/[^0-9\- ()]/g, '');
+                }
+            })
+        });
+
+        inputMessege.addEventListener('input', () =>{
+            inputMessege.value = inputMessege.value.replace (/[^А-Яа-яЁё\-  '' ]/g, '');
+        });
+
+
+        inputMessege.addEventListener('blur', () =>{
+            inputMessege.value = correctForm(inputMessege.value)
+
+        });
+        forms.forEach((elem) => {
+            elem.addEventListener('blur', () =>{
+                if(event.target.matches('.form-name') || event.target.matches('#form2-name')){
+                    event.target.value = event.target.value.replace(/\s+/g, ' ').replace(/^\s*/,'').replace(/\s*$/,'');
+                    event.target.value = event.target.value.replace(/(^|\s)\S/g, function(a) {return a.toUpperCase()});
+                } 
+            })
+        });
+
+        inputsForCalc.forEach((elem) =>{
            elem.addEventListener('input', () =>{
             elem.value = elem.value.replace (/\D/g, '');
            })
         });
-        //  const changeInput = (({target}) => {
-        //     target.value = target.value.replaceAll(/[^А-Яа-яЁё -]/g,'');
-        //     target.value = target.value .replaceAll(/^([-=\s]*)([a-zA-Z0-9])/gm,"$2");
-        //     target.value = target.value.replace(/\s+/g, ' ');
-        //  });
 
-        //  inputName.addEventListener('input', changeInput);
-        //  inputMessege.addEventListener('input', changeInput);
-        //  inputEmail.addEventListener('input', changeInput);
-        //  inputPhone.addEventListener('input', changeInput);
+        
 
-        function capitalize(str){
-            return str.replace(/(^|\s)\S/g, function(a, b) {return a.toUpperCase()});
-        };
-
-        inputName.addEventListener('input', () =>{
-            inputName.value = inputName.value.replace (/[^А-Яа-яЁё\- '']/g, '').toLowerCase();
+        // inputName.addEventListener('input', () =>{
+        //     inputName.value = inputName.value.replace (/[^А-Яа-яЁё\- '']/g, '').toLowerCase();
 
 
-        });
-        inputName.addEventListener('blur', () => {
-            inputName.value = inputName.value.replace(/\s+/g, ' ').replace(/^\s*/,'').replace(/\s*$/,'');
-            inputName.value = capitalize(inputName.value);
-        })
+        // });
+        // inputName.addEventListener('blur', () => {
+
+        //     inputName.value = correctForm(inputName.value);
+        //     inputName.value = capitalize(inputName.value);
+        // })
 
 
 
 
-        inputMessege.addEventListener('input', () =>{
-            inputMessege.value = inputMessege.value.replace (/[^А-Яа-яЁё\-  '' ]/g, '');
+
             
-        inputMessege.addEventListener('blur', () =>{
-            inputMessege.value = inputMessege.value.replace(/\s+/g, ' ').replace(/^\s*/,'').replace(/\s*$/,'');
 
-        })
             
             
 
 
-        });
-        inputEmail.addEventListener('input', () =>{
-            inputEmail.value = inputEmail.value.replace(/([^A-Za-z\- _ @ . ! ~ * '])/g,'');
+        // });
+        // inputEmail.addEventListener('input', () =>{
+        //     inputEmail.value = inputEmail.value.replace(/([^A-Za-z\- _ @ . ! ~ * '])/g,'');
 
             
-        });
+        // });
 
-        inputEmail.addEventListener('blur', () => {
-            inputEmail.value = inputEmail.value.replace(/\s+/g, ' ').replace(/^\s*/,'').replace(/\s*$/,'');
-        })
+        // inputEmail.addEventListener('blur', () => {
+        //     inputEmail.value = correctForm(inputEmail.value);
+        // })
 
-        inputPhone.addEventListener('input', () =>{
-            inputPhone.value = inputPhone.value.replace (/[^0-9\- ()]/g, '');
 
-        });
 
-        inputPhone.addEventListener('blur', () => {
-            inputPhone.value = inputPhone.value.replace(/\s+/g, ' ').replace(/^\s*/,'').replace(/\s*$/,'');
-        })
+
+        // inputPhone.addEventListener('input', () =>{
+        //     inputPhone.value = inputPhone.value.replace (/[^0-9\- ()]/g, '');
+
+        // });
+
+        // inputPhone.addEventListener('blur', () => {
+        //     inputPhone.value = correctForm(inputPhone.value);
+        // })
 
 
     }
 
     validInput();
+
+
+    // калькулятор 
+
+
+    const calculator = (price = 100) => {
+        const calcBlock = document.querySelector('.calc-block'),
+            calcType = document.querySelector('.calc-type'),
+            calcSquare = document.querySelector('.calc-square'),
+            calcDay = document.querySelector('.calc-day'),
+            totalValue = document.getElementById('total'),
+            calcCount = document.querySelector('.calc-count');
+
+            const countSum = () =>{
+
+            let total = 0;
+            let countValue = 1;
+            let dayValue = 1;
+
+            let typeValue = calcType.options[calcType.selectedIndex].value;
+            let squadeValue = +calcSquare.value;
+            
+
+            if(calcCount.value > 1){
+                countValue += (calcCount.value -1) / 10;
+            }
+
+            if(calcDay.value && calcDay.value < 5){
+                dayValue *= 2;
+            } else if (calcDay.value && calcDay.value > 5 && calcDay.value < 10){
+                dayValue *= 1.5;
+            }
+
+            if(typeValue && squadeValue){
+                    total = price * typeValue * squadeValue * calcValue * dayValue;
+            }
+
+                totalValue.textContent = total;
+            }
+
+            calcBlock.addEventListener('change', (event) =>{
+                const target = event.target;
+
+                if(target.matches('.calc-type') || target.matches('.calc-square') || target.matches('.calc-day') || target.matches('.calc-count')){
+                    countSum();
+                }
+            })
+
+
+    };
+
+    calculator();
 
 
 
