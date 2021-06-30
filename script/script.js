@@ -369,13 +369,13 @@ window.addEventListener('DOMContentLoaded', function(){
         
            document.addEventListener('input', () =>{
                 if(event.target.matches('.form-name') || event.target.matches('#form2-name')){
-                    event.target.value = event.target.value.replace (/[^А-Яа-яЁё\- '']/g, '').toLowerCase();
+                    event.target.value = event.target.value.replace (/[^А-Яа-яЁё\ '']/g, '').toLowerCase();
                 } else if(event.target.matches('.form-email')){
                     event.target.value = event.target.value.replace (/([^A-Za-z\- _ @ . ! ~ * '])/g,'');
                 } else if(event.target.matches('.form-phone')){
-                    event.target.value = event.target.value.replace (/[^0-9\- ()]/g, '');
+                    event.target.value = event.target.value.replace (/[^0-9\+ ]/g, '');
                 } else if(event.target.matches('.mess')){
-                    event.target.value = event.target.value.replace  (/[^А-Яа-яЁё\-  '' ]/g, '');
+                    event.target.value = event.target.value.replace  (/^[?!,.а-яА-ЯёЁ0-9\s]+$/g, '');
                 }
             })
 ;
@@ -455,6 +455,87 @@ window.addEventListener('DOMContentLoaded', function(){
     };
 
     calculator(100);
+
+
+    // sent-ajax-form
+
+    const sendForm = () =>{
+        const errorMessage = 'Что-то пошло не так... ',
+              loadMessage = 'Загрузка...',
+              successMessage = 'Спасибо! Мы скоро с вами свяжемся';
+
+        const form = document.getElementById('form1');
+        const footerForm = document.getElementById('form2');
+        const popupForm = document.getElementById('form3');
+
+        const statusMessage = document.createElement('div');
+        
+        statusMessage.style.cssText = 'font-size: 2rem';
+
+        document.addEventListener('submit', (event) => {
+            event.preventDefault();
+            if(event.target.matches('form')){
+                if(event.target.matches('#form1')){
+                    form.appendChild(statusMessage);
+                    statusMessage.textContent = loadMessage;
+                } else if(event.target.matches('#form2')){
+                    footerForm.appendChild(statusMessage);
+                    statusMessage.textContent = loadMessage;
+                } else if (event.target.matches('#form3')){
+                    popupForm.appendChild(statusMessage);
+                    statusMessage.textContent = loadMessage;
+                    statusMessage.style.color = 'white';
+                }
+                
+                statusMessage.textContent = loadMessage;
+                const formData = new FormData(form);
+                let body = {};
+                formData.forEach((value, key) => {
+                    body[key] = value;
+                });
+                postData(body, () => {
+                    statusMessage.textContent = successMessage;
+                }, (error) => {
+                    statusMessage.textContent = errorMessage;
+                    console.error(error);
+                });
+    
+            }
+            
+
+        });
+
+        const postData = (body, outputData, errorData) => {
+            const request = new XMLHttpRequest();
+            request.addEventListener('readystatechange', () => {
+                if(request.readyState !== 4){
+                    return;
+                } 
+
+                if(request.status === 200){
+                    outputData();
+                    form.reset();
+                    footerForm.reset();
+                    popupForm.reset();
+                    
+                } else {
+                    errorData(request.status);  
+                    form.reset();
+                    footerForm.reset();
+                    popupForm.reset();                  
+                }
+            });
+
+            request.open('POST', './server.php');
+            request.setRequestHeader('Content-Type', 'application/json');
+
+            request.send(JSON.stringify(body));
+        }
+       
+    };
+
+
+    sendForm();
 
 
 
