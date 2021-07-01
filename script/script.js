@@ -375,7 +375,7 @@ window.addEventListener('DOMContentLoaded', function(){
                 } else if(event.target.matches('.form-phone')){
                     event.target.value = event.target.value.replace (/[^0-9\+ ]/g, '');
                 } else if(event.target.matches('.mess')){
-                    event.target.value = event.target.value.replace  (/^[?!,.а-яА-ЯёЁ0-9\s]+$/g, '');
+                    event.target.value = event.target.value.replace  (/[^?!,.а-яА-ЯёЁ0-9\s]+$/g, '');
                 }
             })
 ;
@@ -468,6 +468,10 @@ window.addEventListener('DOMContentLoaded', function(){
         const footerForm = document.getElementById('form2');
         const popupForm = document.getElementById('form3');
 
+        const formEmail = document.getElementById('form1-email');
+        const footerEmail = document.getElementById('form2-email');
+        const popupEmail = document.getElementById('form3-email');
+
         const statusMessage = document.createElement('div');
         
         statusMessage.style.cssText = 'font-size: 2rem';
@@ -476,21 +480,48 @@ window.addEventListener('DOMContentLoaded', function(){
             event.preventDefault();
             if(event.target.matches('form')){
                 if(event.target.matches('#form1')){
-                    form.appendChild(statusMessage);
-                    statusMessage.textContent = loadMessage;
+                    if(!formEmail.value){
+                        formEmail.style.border = 'solid red';
+                        return;
+                    } else {
+                        formEmail.style.border = 'none';
+                        form.appendChild(statusMessage);
+                        statusMessage.textContent = loadMessage;
+                    }
+
                 } else if(event.target.matches('#form2')){
-                    footerForm.appendChild(statusMessage);
-                    statusMessage.textContent = loadMessage;
+                    if(!footerEmail.value){
+                        footerEmail.style.border = 'solid red';
+                        return;
+                    } else {
+                        footerEmail.style.border = 'none';
+                        footerForm.appendChild(statusMessage);
+                        statusMessage.textContent = loadMessage;}  
                 } else if (event.target.matches('#form3')){
-                    popupForm.appendChild(statusMessage);
-                    statusMessage.textContent = loadMessage;
-                    statusMessage.style.color = 'white';
+                    if(!popupEmail.value){
+                        popupEmail.style.border = 'solid red';
+                        return;
+                    } else {
+                        popupForm.appendChild(statusMessage);
+                        statusMessage.textContent = loadMessage;
+                        popupEmail.style.border = 'none';
+                        statusMessage.style.color = 'white';
+                    }
+           
                 }
                 
                 statusMessage.textContent = loadMessage;
                 const formData = new FormData(form);
+                const footerFormData = new FormData(footerForm);
+                const popupFormData = new FormData(popupForm);
                 let body = {};
                 formData.forEach((value, key) => {
+                    body[key] = value;
+                });
+                footerFormData.forEach((value, key) => {
+                    body[key] = value;
+                });
+                popupFormData.forEach((value, key) => {
                     body[key] = value;
                 });
                 postData(body, () => {
@@ -508,7 +539,7 @@ window.addEventListener('DOMContentLoaded', function(){
         const postData = (body, outputData, errorData) => {
             const request = new XMLHttpRequest();
             request.addEventListener('readystatechange', () => {
-                if(request.readyState !== 4){
+                if(request.readyState !== 4 ){
                     return;
                 } 
 
