@@ -511,25 +511,23 @@ window.addEventListener('DOMContentLoaded', function(){
                 }
                 
                 statusMessage.textContent = loadMessage;
-                const formData = new FormData(form);
-                const footerFormData = new FormData(footerForm);
-                const popupFormData = new FormData(popupForm);
+                
+                if(event.target.matches('form')){
+                    const formData = new FormData(event.target);
+                
+                
                 let body = {};
                 formData.forEach((value, key) => {
                     body[key] = value;
                 });
-                footerFormData.forEach((value, key) => {
-                    body[key] = value;
-                });
-                popupFormData.forEach((value, key) => {
-                    body[key] = value;
-                });
+                
                 postData(body, () => {
                     statusMessage.textContent = successMessage;
                 }, (error) => {
                     statusMessage.textContent = errorMessage;
                     console.error(error);
                 });
+            }
     
             }
             
