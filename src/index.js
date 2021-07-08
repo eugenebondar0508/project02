@@ -1,5 +1,6 @@
 'use strict';
 
+
 import countTimer from './modules/countTimer';
 import toggleMenu from './modules/toggleMenu';
 import togglePopup from './modules/togglePopup';
@@ -10,6 +11,7 @@ import changePhoto from './modules/changePhoto';
 import validInput from './modules/validInput';
 import calculator from './modules/calculator';
 import sendForm from './modules/sendForm';
+
 
 // Timer
     countTimer('21 july 2021');

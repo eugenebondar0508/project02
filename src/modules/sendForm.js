@@ -11,6 +11,16 @@ const sendForm = () =>{
     const footerEmail = document.getElementById('form2-email');
     const popupEmail = document.getElementById('form3-email');
 
+    const inputs = document.querySelectorAll('input');
+
+    const clearInputs = () => {
+        inputs.forEach(item => {
+            item.value = '';
+        })
+    };
+
+    const message = document.getElementById('form2-message');
+
     const statusMessage = document.createElement('div');
     
     statusMessage.style.cssText = 'font-size: 2rem';
@@ -32,7 +42,12 @@ const sendForm = () =>{
                 if(!footerEmail.value){
                     footerEmail.style.border = 'solid red';
                     return;
-                } else {
+                }else if(!message.value){
+                    message.style.border = 'solid red';
+                    return;
+                }
+                else {
+                    message.style.border = 'none';
                     footerEmail.style.border = 'none';
                     footerForm.appendChild(statusMessage);
                     statusMessage.textContent = loadMessage;}  
@@ -85,15 +100,17 @@ const sendForm = () =>{
 
                 if(request.status === 200){
                     resolve();
-                    form.reset();
-                    footerForm.reset();
-                    popupForm.reset();
+                    clearInputs();
+                    // form.reset();
+                    // footerForm.reset();
+                    // popupForm.reset();
                     
                 } else {
                     reject(request.status);  
-                    form.reset();
-                    footerForm.reset();
-                    popupForm.reset();                  
+                    clearInputs();
+                    // form.reset();
+                    // footerForm.reset();
+                    // popupForm.reset();                  
                 }
             });
 
