@@ -42,13 +42,9 @@ const sendForm = () =>{
                 } else if(!formPhone.value.match(/^\d[\d\(\)\ -]{4,14}\d$/)){
                     formPhone.style.border = 'solid red';
                     return;
-                } else if(formEmail.value.match(/^[\w-\.]+@[\w-]+\.[a-z]{2,4}$/i) && formPhone.value.match(/^\d[\d\(\)\ -]{4,14}\d$/)){
+                } else {
                     formEmail.style.border = 'none';
                     formPhone.style.border = 'none';
-                }
-
-                 else {
-                    formEmail.style.border = 'none';
                     form.appendChild(statusMessage);
                     statusMessage.textContent = loadMessage;
                 }
@@ -63,13 +59,9 @@ const sendForm = () =>{
                 } else if(!footerPhone.value.match(/^\d[\d\(\)\ -]{4,14}\d$/)){
                     footerPhone.style.border = 'solid red';
                     return;
-                } else if(footerEmail.value.match(/^[\w-\.]+@[\w-]+\.[a-z]{2,4}$/i) && footerPhone.value.match(/^\d[\d\(\)\ -]{4,14}\d$/)){
+                } else {
                     footerEmail.style.border = 'none';
                     footerPhone.style.border = 'none';
-                }
-                else {
-                    message.style.border = 'none';
-                    footerEmail.style.border = 'none';
                     footerForm.appendChild(statusMessage);
                     statusMessage.textContent = loadMessage;}  
             } else if (event.target.matches('#form3')){
@@ -82,14 +74,12 @@ const sendForm = () =>{
                 } else if(!popupPhone.value.match(/^\d[\d\(\)\ -]{4,14}\d$/)){
                     popupPhone.style.border = 'solid red';
                     return;
-                } else if(popupEmail.value.match(/^[\w-\.]+@[\w-]+\.[a-z]{2,4}$/i) && popupPhone.value.match(/^\d[\d\(\)\ -]{4,14}\d$/)){
-                    popupEmail.style.border = 'none';
-                    popupPhone.style.border = 'none';
                 }
                  else {
                     popupForm.appendChild(statusMessage);
                     statusMessage.textContent = loadMessage;
                     popupEmail.style.border = 'none';
+                    popupPhone.style.border = 'none';
                     statusMessage.style.color = 'white';
                 }
        
