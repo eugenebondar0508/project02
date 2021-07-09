@@ -8,7 +8,7 @@ const validInput = () => {
         return str.replace(/(^|\s)\S/g, function(a) {return a.toUpperCase()});
     };
 
-    const phone = document.querySelector('#form1-phone');
+  
     
        document.addEventListener('input', () =>{
             if(event.target.matches('.form-name') || event.target.matches('#form2-name')){
@@ -16,9 +16,6 @@ const validInput = () => {
             } else if(event.target.matches('.form-email')){
                 event.target.value = event.target.value.replace (/([^A-Za-z0-9\- _ @ . ! ~ * '])/g,'');
             } else if(event.target.matches('.form-phone')){
-                if(!phone.value.match('/^[\d]{1}\ \([\d]{2,3}\)\ [\d]{2,3}-[\d]{2,3}-[\d]{2,3}$/')){
-                    return;
-                }
                 event.target.value = event.target.value.replace (/[^0-9\+ ]/g, '');
             } else if(event.target.matches('.mess')){
                 event.target.value = event.target.value.replace  (/[^?!,.а-яА-ЯёЁ0-9\s]+$/g, '');

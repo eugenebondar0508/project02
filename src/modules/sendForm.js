@@ -37,10 +37,16 @@ const sendForm = () =>{
                     formEmail.style.border = 'solid red';
                     return;
                 } else if(!formEmail.value.match(/^[\w-\.]+@[\w-]+\.[a-z]{2,4}$/i)){
+                    formEmail.style.border = 'solid red';
                     return;
                 } else if(!formPhone.value.match(/^\d[\d\(\)\ -]{4,14}\d$/)){
+                    formPhone.style.border = 'solid red';
                     return;
+                } else if(formEmail.value.match(/^[\w-\.]+@[\w-]+\.[a-z]{2,4}$/i) && formPhone.value.match(/^\d[\d\(\)\ -]{4,14}\d$/)){
+                    formEmail.style.border = 'none';
+                    formPhone.style.border = 'none';
                 }
+
                  else {
                     formEmail.style.border = 'none';
                     form.appendChild(statusMessage);
@@ -52,13 +58,14 @@ const sendForm = () =>{
                     footerEmail.style.border = 'solid red';
                     return;
                 } else if (!footerEmail.value.match(/^[\w-\.]+@[\w-]+\.[a-z]{2,4}$/i)){
+                    footerEmail.style.border = 'solid red';
                     return;
                 } else if(!footerPhone.value.match(/^\d[\d\(\)\ -]{4,14}\d$/)){
+                    footerPhone.style.border = 'solid red';
                     return;
-                }
-                 else if(!message.value){
-                    message.style.border = 'solid red';
-                    return;
+                } else if(footerEmail.value.match(/^[\w-\.]+@[\w-]+\.[a-z]{2,4}$/i) && footerPhone.value.match(/^\d[\d\(\)\ -]{4,14}\d$/)){
+                    footerEmail.style.border = 'none';
+                    footerPhone.style.border = 'none';
                 }
                 else {
                     message.style.border = 'none';
@@ -70,10 +77,16 @@ const sendForm = () =>{
                     popupEmail.style.border = 'solid red';
                     return;
                 } else if(!popupEmail.value.match(/^[\w-\.]+@[\w-]+\.[a-z]{2,4}$/i)){
+                    popupEmail.style.border = 'solid red';
                     return;
                 } else if(!popupPhone.value.match(/^\d[\d\(\)\ -]{4,14}\d$/)){
+                    popupPhone.style.border = 'solid red';
                     return;
-                } else {
+                } else if(popupEmail.value.match(/^[\w-\.]+@[\w-]+\.[a-z]{2,4}$/i) && popupPhone.value.match(/^\d[\d\(\)\ -]{4,14}\d$/)){
+                    popupEmail.style.border = 'none';
+                    popupPhone.style.border = 'none';
+                }
+                 else {
                     popupForm.appendChild(statusMessage);
                     statusMessage.textContent = loadMessage;
                     popupEmail.style.border = 'none';
