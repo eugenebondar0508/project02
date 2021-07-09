@@ -11,6 +11,10 @@ const sendForm = () =>{
     const footerEmail = document.getElementById('form2-email');
     const popupEmail = document.getElementById('form3-email');
 
+    const formPhone = document.getElementById('form1-phone');
+    const footerPhone = document.getElementById('form2-phone');
+    const popupPhone = document.getElementById('form3-phone');
+
     const inputs = document.querySelectorAll('input');
 
     const clearInputs = () => {
@@ -32,7 +36,12 @@ const sendForm = () =>{
                 if(!formEmail.value){
                     formEmail.style.border = 'solid red';
                     return;
-                } else {
+                } else if(!formEmail.value.match(/^[\w-\.]+@[\w-]+\.[a-z]{2,4}$/i)){
+                    return;
+                } else if(!formPhone.value.match(/^\d[\d\(\)\ -]{4,14}\d$/)){
+                    return;
+                }
+                 else {
                     formEmail.style.border = 'none';
                     form.appendChild(statusMessage);
                     statusMessage.textContent = loadMessage;
@@ -42,7 +51,12 @@ const sendForm = () =>{
                 if(!footerEmail.value){
                     footerEmail.style.border = 'solid red';
                     return;
-                }else if(!message.value){
+                } else if (!footerEmail.value.match(/^[\w-\.]+@[\w-]+\.[a-z]{2,4}$/i)){
+                    return;
+                } else if(!footerPhone.value.match(/^\d[\d\(\)\ -]{4,14}\d$/)){
+                    return;
+                }
+                 else if(!message.value){
                     message.style.border = 'solid red';
                     return;
                 }
@@ -54,6 +68,10 @@ const sendForm = () =>{
             } else if (event.target.matches('#form3')){
                 if(!popupEmail.value){
                     popupEmail.style.border = 'solid red';
+                    return;
+                } else if(!popupEmail.value.match(/^[\w-\.]+@[\w-]+\.[a-z]{2,4}$/i)){
+                    return;
+                } else if(!popupPhone.value.match(/^\d[\d\(\)\ -]{4,14}\d$/)){
                     return;
                 } else {
                     popupForm.appendChild(statusMessage);
